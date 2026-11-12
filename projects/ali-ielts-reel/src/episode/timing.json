@@ -1,0 +1,623 @@
+{
+ "voice": "uz-UZ-SardorNeural",
+ "generatedBy": "scripts/generate_voiceover.py",
+ "lines": [
+  {
+   "id": "l01",
+   "text": "MANA BU ALI!",
+   "file": "audio/vo/l01.wav",
+   "duration": 0.75,
+   "words": [
+    {
+     "text": "MANA",
+     "start": 0.0,
+     "end": 0.143
+    },
+    {
+     "text": "BU",
+     "start": 0.191,
+     "end": 0.322
+    },
+    {
+     "text": "ALI!",
+     "start": 0.357,
+     "end": 0.595
+    }
+   ]
+  },
+  {
+   "id": "l02",
+   "text": "Bu bola IELTS o‘qimoqchi,",
+   "file": "audio/vo/l02.wav",
+   "duration": 1.59,
+   "words": [
+    {
+     "text": "Bu",
+     "start": 0.0,
+     "end": 0.082
+    },
+    {
+     "text": "bola",
+     "start": 0.142,
+     "end": 0.416
+    },
+    {
+     "text": "IELTS",
+     "start": 0.487,
+     "end": 0.868
+    },
+    {
+     "text": "o‘qimoqchi,",
+     "start": 0.892,
+     "end": 1.451
+    }
+   ]
+  },
+  {
+   "id": "l03",
+   "text": "lekin o‘qishga umuman niyati yo‘q!",
+   "file": "audio/vo/l03.wav",
+   "duration": 1.79,
+   "words": [
+    {
+     "text": "lekin",
+     "start": 0.0,
+     "end": 0.298
+    },
+    {
+     "text": "o‘qishga",
+     "start": 0.393,
+     "end": 0.81
+    },
+    {
+     "text": "umuman",
+     "start": 0.822,
+     "end": 1.215
+    },
+    {
+     "text": "niyati",
+     "start": 1.215,
+     "end": 1.548
+    },
+    {
+     "text": "yo‘q!",
+     "start": 1.548,
+     "end": 1.786
+    }
+   ]
+  },
+  {
+   "id": "l04",
+   "text": "Har kuni bitta gap: Ertadan boshlayman!",
+   "file": "audio/vo/l04.wav",
+   "duration": 2.03,
+   "words": [
+    {
+     "text": "Har",
+     "start": 0.0,
+     "end": 0.095
+    },
+    {
+     "text": "kuni",
+     "start": 0.131,
+     "end": 0.321
+    },
+    {
+     "text": "bitta",
+     "start": 0.321,
+     "end": 0.631
+    },
+    {
+     "text": "gap:",
+     "start": 0.631,
+     "end": 0.904
+    },
+    {
+     "text": "Ertadan",
+     "start": 0.964,
+     "end": 1.428
+    },
+    {
+     "text": "boshlayman!",
+     "start": 1.428,
+     "end": 1.964
+    }
+   ]
+  },
+  {
+   "id": "l05",
+   "text": "Lekin ertasi kuni...",
+   "file": "audio/vo/l05.wav",
+   "duration": 1.09,
+   "words": [
+    {
+     "text": "Lekin",
+     "start": 0.0,
+     "end": 0.243
+    },
+    {
+     "text": "ertasi",
+     "start": 0.302,
+     "end": 0.719
+    },
+    {
+     "text": "kuni...",
+     "start": 0.719,
+     "end": 0.957
+    }
+   ]
+  },
+  {
+   "id": "l06",
+   "text": "Besh daqiqa Instagram...",
+   "file": "audio/vo/l06.wav",
+   "duration": 1.28,
+   "words": [
+    {
+     "text": "Besh",
+     "start": 0.0,
+     "end": 0.165
+    },
+    {
+     "text": "daqiqa",
+     "start": 0.201,
+     "end": 0.605
+    },
+    {
+     "text": "Instagram...",
+     "start": 0.617,
+     "end": 1.201
+    }
+   ]
+  },
+  {
+   "id": "l07",
+   "text": "Yana besh daqiqa TikTok...",
+   "file": "audio/vo/l07.wav",
+   "duration": 1.25,
+   "words": [
+    {
+     "text": "Yana",
+     "start": 0.0,
+     "end": 0.121
+    },
+    {
+     "text": "besh",
+     "start": 0.169,
+     "end": 0.383
+    },
+    {
+     "text": "daqiqa",
+     "start": 0.383,
+     "end": 0.776
+    },
+    {
+     "text": "TikTok...",
+     "start": 0.776,
+     "end": 1.193
+    }
+   ]
+  },
+  {
+   "id": "l08",
+   "text": "Qarasaki, uch soat o‘tib ketibdi!",
+   "file": "audio/vo/l08.wav",
+   "duration": 1.8,
+   "words": [
+    {
+     "text": "Qarasaki,",
+     "start": 0.0,
+     "end": 0.449
+    },
+    {
+     "text": "uch",
+     "start": 0.52,
+     "end": 0.699
+    },
+    {
+     "text": "soat",
+     "start": 0.699,
+     "end": 0.984
+    },
+    {
+     "text": "o‘tib",
+     "start": 0.996,
+     "end": 1.27
+    },
+    {
+     "text": "ketibdi!",
+     "start": 1.27,
+     "end": 1.687
+    }
+   ]
+  },
+  {
+   "id": "l09",
+   "text": "Bir kuni Ali IELTS mock testga kirdi.",
+   "file": "audio/vo/l09.wav",
+   "duration": 2.05,
+   "words": [
+    {
+     "text": "Bir",
+     "start": 0.0,
+     "end": 0.094
+    },
+    {
+     "text": "kuni",
+     "start": 0.141,
+     "end": 0.332
+    },
+    {
+     "text": "Ali",
+     "start": 0.332,
+     "end": 0.558
+    },
+    {
+     "text": "IELTS",
+     "start": 0.641,
+     "end": 1.034
+    },
+    {
+     "text": "mock",
+     "start": 1.046,
+     "end": 1.272
+    },
+    {
+     "text": "testga",
+     "start": 1.284,
+     "end": 1.617
+    },
+    {
+     "text": "kirdi.",
+     "start": 1.617,
+     "end": 1.939
+    }
+   ]
+  },
+  {
+   "id": "l10",
+   "text": "Listening — to‘rt yarim!",
+   "file": "audio/vo/l10.wav",
+   "duration": 1.12,
+   "words": [
+    {
+     "text": "Listening",
+     "start": 0.0,
+     "end": 0.409
+    },
+    {
+     "text": "to‘rt",
+     "start": 0.456,
+     "end": 0.742
+    },
+    {
+     "text": "yarim!",
+     "start": 0.754,
+     "end": 1.052
+    }
+   ]
+  },
+  {
+   "id": "l11",
+   "text": "Reading — to‘rt!",
+   "file": "audio/vo/l11.wav",
+   "duration": 0.65,
+   "words": [
+    {
+     "text": "Reading",
+     "start": 0.0,
+     "end": 0.242
+    },
+    {
+     "text": "to‘rt!",
+     "start": 0.29,
+     "end": 0.623
+    }
+   ]
+  },
+  {
+   "id": "l12",
+   "text": "Ali hayron: Nega mening balim oshmayapti?!",
+   "file": "audio/vo/l12.wav",
+   "duration": 2.12,
+   "words": [
+    {
+     "text": "Ali",
+     "start": 0.0,
+     "end": 0.097
+    },
+    {
+     "text": "hayron:",
+     "start": 0.145,
+     "end": 0.585
+    },
+    {
+     "text": "Nega",
+     "start": 0.681,
+     "end": 1.002
+    },
+    {
+     "text": "mening",
+     "start": 1.014,
+     "end": 1.312
+    },
+    {
+     "text": "balim",
+     "start": 1.312,
+     "end": 1.597
+    },
+    {
+     "text": "oshmayapti?!",
+     "start": 1.609,
+     "end": 2.12
+    }
+   ]
+  },
+  {
+   "id": "l13",
+   "text": "Chunki, Ali, IELTS ballari orzu qilish bilan oshmaydi!",
+   "file": "audio/vo/l13.wav",
+   "duration": 3.69,
+   "words": [
+    {
+     "text": "Chunki,",
+     "start": 0.0,
+     "end": 0.256
+    },
+    {
+     "text": "Ali,",
+     "start": 0.387,
+     "end": 0.625
+    },
+    {
+     "text": "IELTS",
+     "start": 1.575,
+     "end": 1.896
+    },
+    {
+     "text": "ballari",
+     "start": 1.944,
+     "end": 2.337
+    },
+    {
+     "text": "orzu",
+     "start": 2.396,
+     "end": 2.694
+    },
+    {
+     "text": "qilish",
+     "start": 2.706,
+     "end": 2.956
+    },
+    {
+     "text": "bilan",
+     "start": 2.956,
+     "end": 3.194
+    },
+    {
+     "text": "oshmaydi!",
+     "start": 3.206,
+     "end": 3.69
+    }
+   ]
+  },
+  {
+   "id": "l14",
+   "text": "Shundan keyin Ali o‘zini qo‘lga oldi.",
+   "file": "audio/vo/l14.wav",
+   "duration": 1.9,
+   "words": [
+    {
+     "text": "Shundan",
+     "start": 0.0,
+     "end": 0.273
+    },
+    {
+     "text": "keyin",
+     "start": 0.297,
+     "end": 0.607
+    },
+    {
+     "text": "Ali",
+     "start": 0.666,
+     "end": 0.881
+    },
+    {
+     "text": "o‘zini",
+     "start": 0.916,
+     "end": 1.262
+    },
+    {
+     "text": "qo‘lga",
+     "start": 1.262,
+     "end": 1.595
+    },
+    {
+     "text": "oldi.",
+     "start": 1.595,
+     "end": 1.892
+    }
+   ]
+  },
+  {
+   "id": "l15",
+   "text": "Har kuni listening, reading va yangi so‘zlar!",
+   "file": "audio/vo/l15.wav",
+   "duration": 2.33,
+   "words": [
+    {
+     "text": "Har",
+     "start": 0.0,
+     "end": 0.097
+    },
+    {
+     "text": "kuni",
+     "start": 0.133,
+     "end": 0.335
+    },
+    {
+     "text": "listening,",
+     "start": 0.335,
+     "end": 0.835
+    },
+    {
+     "text": "reading",
+     "start": 0.895,
+     "end": 1.3
+    },
+    {
+     "text": "va",
+     "start": 1.359,
+     "end": 1.502
+    },
+    {
+     "text": "yangi",
+     "start": 1.514,
+     "end": 1.812
+    },
+    {
+     "text": "so‘zlar!",
+     "start": 1.812,
+     "end": 2.252
+    }
+   ]
+  },
+  {
+   "id": "l16",
+   "text": "Va nihoyat, natijasi yaxshilana boshladi!",
+   "file": "audio/vo/l16.wav",
+   "duration": 2.15,
+   "words": [
+    {
+     "text": "Va",
+     "start": 0.0,
+     "end": 0.048
+    },
+    {
+     "text": "nihoyat,",
+     "start": 0.095,
+     "end": 0.619
+    },
+    {
+     "text": "natijasi",
+     "start": 0.679,
+     "end": 1.238
+    },
+    {
+     "text": "yaxshilana",
+     "start": 1.238,
+     "end": 1.679
+    },
+    {
+     "text": "boshladi!",
+     "start": 1.679,
+     "end": 2.119
+    }
+   ]
+  },
+  {
+   "id": "l17",
+   "text": "Sen ham Aliga o‘xshab ertani kutma!",
+   "file": "audio/vo/l17.wav",
+   "duration": 1.94,
+   "words": [
+    {
+     "text": "Sen",
+     "start": 0.0,
+     "end": 0.133
+    },
+    {
+     "text": "ham",
+     "start": 0.181,
+     "end": 0.383
+    },
+    {
+     "text": "Aliga",
+     "start": 0.407,
+     "end": 0.669
+    },
+    {
+     "text": "o‘xshab",
+     "start": 0.681,
+     "end": 1.062
+    },
+    {
+     "text": "ertani",
+     "start": 1.097,
+     "end": 1.49
+    },
+    {
+     "text": "kutma!",
+     "start": 1.49,
+     "end": 1.8
+    }
+   ]
+  },
+  {
+   "id": "l18",
+   "text": "IELTSni bugundan boshla!",
+   "file": "audio/vo/l18.wav",
+   "duration": 1.39,
+   "words": [
+    {
+     "text": "IELTSni",
+     "start": 0.0,
+     "end": 0.381
+    },
+    {
+     "text": "bugundan",
+     "start": 0.417,
+     "end": 0.881
+    },
+    {
+     "text": "boshla!",
+     "start": 0.893,
+     "end": 1.238
+    }
+   ]
+  },
+  {
+   "id": "l19",
+   "text": "Yana shunaqa foydali videolar uchun obuna bo‘l!",
+   "file": "audio/vo/l19.wav",
+   "duration": 2.44,
+   "words": [
+    {
+     "text": "Yana",
+     "start": 0.0,
+     "end": 0.119
+    },
+    {
+     "text": "shunaqa",
+     "start": 0.155,
+     "end": 0.488
+    },
+    {
+     "text": "foydali",
+     "start": 0.488,
+     "end": 0.893
+    },
+    {
+     "text": "videolar",
+     "start": 0.905,
+     "end": 1.417
+    },
+    {
+     "text": "uchun",
+     "start": 1.417,
+     "end": 1.667
+    },
+    {
+     "text": "obuna",
+     "start": 1.738,
+     "end": 2.095
+    },
+    {
+     "text": "bo‘l!",
+     "start": 2.095,
+     "end": 2.345
+    }
+   ]
+  }
+ ]
+}
