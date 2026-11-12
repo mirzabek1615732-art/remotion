@@ -11,9 +11,19 @@ instead, drop WAV files with the same names into public/audio/vo/ and run
 `python3 scripts/generate_voiceover.py --from-existing` to rebuild timing.json
 from your recordings (word timings are then estimated proportionally).
 
+Engines (--engine):
+  edge        free Microsoft neural voice (default; script.json voice.name)
+  elevenlabs  ElevenLabs eleven_v3 with language_code "uz". Needs
+              ELEVENLABS_API_KEY and voice.elevenlabsVoiceId in script.json.
+              Uses the /with-timestamps endpoint, so captions get exact
+              character-level timing.
+
+--enhance applies a speech clarity chain (rumble/mud cut, presence boost,
+de-essing, gentle compression, per-line loudness -16 LUFS) to every clip.
+
 Usage:
   pip install edge-tts numpy
-  python3 scripts/generate_voiceover.py [--from-existing] [--only l01,l02]
+  python3 scripts/generate_voiceover.py [--engine edge|elevenlabs] [--enhance] [--from-existing] [--only l01,l02]
 """
 from __future__ import annotations
 
@@ -72,13 +82,83 @@ async def synth(text: str, voice: str, rate: str, pitch: str, mp3_path: Path) ->
     return words
 
 
-def decode(path: Path) -> np.ndarray:
+CLARITY_CHAIN = (
+    "highpass=f=90,"
+    "equalizer=f=280:t=q:w=1.2:g=-3,"  # remove boxy low-mids
+    "equalizer=f=3200:t=q:w=1.0:g=4,"  # consonant presence / intelligibility
+    "equalizer=f=9000:t=q:w=1.5:g=1.5,"  # air
+    "deesser=i=0.4:m=0.5:f=0.5,"
+    "acompressor=threshold=-20dB:ratio=3:attack=5:release=60:makeup=2,"
+    "loudnorm=I=-16:TP=-1.5:LRA=7"
+)
+
+
+def synth_elevenlabs(text: str, voice_id: str, mp3_path: Path, stability: float = 0.5) -> list[dict]:
+    """ElevenLabs eleven_v3 (supports Uzbek). Returns word timings built from
+    the character alignment of the /with-timestamps endpoint."""
+    import base64
+    import urllib.request
+
+    key = os.environ.get("ELEVENLABS_API_KEY")
+    if not key:
+        sys.exit("ELEVENLABS_API_KEY is not set")
+    body = json.dumps(
+        {
+            "text": text,
+            "model_id": "eleven_v3",
+            "language_code": "uz",
+            "voice_settings": {"stability": stability, "similarity_boost": 0.8},
+        }
+    ).encode()
+    req = urllib.request.Request(
+        f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps?output_format=mp3_44100_192",
+        data=body,
+        headers={"xi-api-key": key, "Content-Type": "application/json"},
+    )
+    with urllib.request.urlopen(req, context=_ssl_context(), timeout=120) as res:
+        data = json.loads(res.read())
+    mp3_path.write_bytes(base64.b64decode(data["audio_base64"]))
+    al = data.get("alignment") or {}
+    chars, starts, ends = al.get("characters", []), al.get("character_start_times_seconds", []), al.get("character_end_times_seconds", [])
+    words: list[dict] = []
+    cur = None
+    for ch, a, b in zip(chars, starts, ends):
+        if ch.isspace():
+            if cur:
+                words.append(cur)
+            cur = None
+        elif cur is None:
+            cur = {"text": ch, "start": a, "end": b}
+        else:
+            cur["text"] += ch
+            cur["end"] = b
+    if cur:
+        words.append(cur)
+    return words
+
+
+def decode(path: Path, filters: str | None = None) -> np.ndarray:
+    af = ["-af", filters] if filters else []
     raw = subprocess.run(
-        ["ffmpeg", "-v", "error", "-i", str(path), "-ac", "1", "-ar", str(SR), "-f", "s16le", "-"],
+        ["ffmpeg", "-v", "error", "-i", str(path), *af, "-ac", "1", "-ar", str(SR), "-f", "s16le", "-"],
         check=True,
         capture_output=True,
     ).stdout
     return np.frombuffer(raw, dtype=np.int16).astype(np.float32) / 32768.0
+
+
+def enhance(samples: np.ndarray) -> np.ndarray:
+    """Run the clarity chain on already-trimmed audio (keeps length/timing)."""
+    pcm = (np.clip(samples, -1, 1) * 32767).astype(np.int16).tobytes()
+    pad = np.zeros(int(SR * 0.5), dtype=np.int16).tobytes()  # loudnorm look-ahead headroom
+    out = subprocess.run(
+        ["ffmpeg", "-v", "error", "-f", "s16le", "-ar", str(SR), "-ac", "1", "-i", "-", "-af", CLARITY_CHAIN, "-ar", str(SR), "-ac", "1", "-f", "s16le", "-"],
+        input=pcm + pad,
+        check=True,
+        capture_output=True,
+    ).stdout
+    y = np.frombuffer(out, dtype=np.int16).astype(np.float32) / 32768.0
+    return y[: len(samples)]
 
 
 def write_wav(path: Path, samples: np.ndarray) -> None:
@@ -133,6 +213,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--from-existing", action="store_true", help="use WAVs already in public/audio/vo")
     ap.add_argument("--only", default="", help="comma separated line ids to regenerate")
+    ap.add_argument("--engine", choices=["edge", "elevenlabs"], default=None, help="TTS engine (default: script.json voice.engine)")
+    ap.add_argument("--enhance", action="store_true", help="apply the speech clarity chain")
     args = ap.parse_args()
 
     script = json.loads(SCRIPT.read_text())
@@ -158,10 +240,19 @@ def main() -> None:
             words = caption_words(line["text"], [], dur)
         else:
             mp3 = VO_DIR / f"{lid}.mp3"
-            spoken = asyncio.run(
-                synth(line.get("spoken", line["text"]), voice["name"], line.get("rate", voice["rate"]), line.get("pitch", voice["pitch"]), mp3)
-            )
+            engine = args.engine or voice.get("engine", "edge")
+            if engine == "elevenlabs":
+                vid = voice.get("elevenlabsVoiceId")
+                if not vid:
+                    sys.exit("set voice.elevenlabsVoiceId in script.json")
+                spoken = synth_elevenlabs(line.get("spoken", line["text"]), vid, mp3)
+            else:
+                spoken = asyncio.run(
+                    synth(line.get("spoken", line["text"]), voice["name"], line.get("rate", voice["rate"]), line.get("pitch", voice["pitch"]), mp3)
+                )
             samples, lead = trim(decode(mp3))
+            if args.enhance or voice.get("enhance", False):
+                samples = enhance(samples)
             mp3.unlink()
             write_wav(wav_path, samples)
             dur = len(samples) / SR

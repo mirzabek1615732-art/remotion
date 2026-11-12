@@ -71,6 +71,8 @@ Scene beats are not hard-coded seconds. Each scene receives `scene.beats` (the l
 ## Audio and licensing
 
 - **Narration:** Microsoft Edge neural TTS voice `uz-UZ-SardorNeural` (male, Uzbek), produced with the open-source `edge-tts` client. It is synthetic, not a human recording. Before commercial publishing, check that your use fits Microsoft's terms for that service. To use a professional voice instead, record one WAV per line with the same file names (`public/audio/vo/l01.wav` …) and run `python3 scripts/generate_voiceover.py --from-existing`. That rebuilds `timing.json` from your recordings; word timings are then estimated proportionally.
+- **Voice clarity:** with `voice.enhance: true` in `script.json` (the default) or `--enhance`, every clip goes through a speech clarity chain after silence trimming: 90 Hz high-pass, −3 dB at 280 Hz, +4 dB presence at 3.2 kHz, de-esser, 3:1 compression and −16 LUFS per line. Timing is unchanged.
+- **ElevenLabs engine (optional, paid):** set `voice.elevenlabsVoiceId` and `ELEVENLABS_API_KEY`, then run `python3 scripts/generate_voiceover.py --engine elevenlabs`. It uses `eleven_v3` with `language_code: "uz"`, and captions get exact timings from ElevenLabs' character alignment. In a blind Whisper test the Microsoft voice and ElevenLabs v4 were equally intelligible in Uzbek, so pick by ear.
 - **Pronunciation:** each line has a `spoken` field that the TTS reads (for example `Ayelts` for IELTS, `mok test`), while `text` is what the captions show.
 - **SFX and music** are synthesised from scratch by `scripts/generate_audio_assets.py`. They are original and free to use.
 - **Font:** Montserrat (SIL OFL 1.1, see `public/fonts/OFL-Montserrat.txt`). It is bundled locally, so rendering needs no network access.
