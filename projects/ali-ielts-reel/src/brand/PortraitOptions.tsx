@@ -5,7 +5,7 @@ import {LogoMark} from './LogoMark';
 
 loadBrandFonts();
 
-export type PortraitVariant = 'studioCanvas' | 'studioLowKey' | 'studioLight' | 'infoCard' | 'textBehind' | 'story';
+export type PortraitVariant = 'studioCanvas' | 'studioLowKey' | 'studioLight' | 'infoCard' | 'textBehind' | 'story' | 'pfp' | 'pfpBadge';
 
 export type PortraitProps = {
   variant: PortraitVariant;
@@ -124,6 +124,25 @@ export const PortraitOptions: React.FC<PortraitProps> = (p) => {
             </div>
           </div>
           <Grain w={1080} h={1350} amount={0.14} />
+        </AbsoluteFill>
+      );
+    }
+    case 'pfp':
+    case 'pfpBadge': {
+      // square profile picture in the info-card look; face centred for the circle crop
+      const s = 1.22;
+      return (
+        <AbsoluteFill style={{background: '#0b0b0c'}}>
+          <Backdrop w={1080} h={1080} center="#2c2e32" edge="#070708" mottle={0.3} spotY={0.3} id="pf" />
+          <Person photo={p.photo} x={540 - 426 * s} y={130 - 88 * s} scale={s} />
+          {p.variant === 'pfpBadge' ? (
+            <div style={{position: 'absolute', left: 0, right: 0, bottom: 70, display: 'flex', justifyContent: 'center'}}>
+              <div style={{background: '#000', border: '7px solid #fff', padding: '6px 26px 2px', fontFamily: BLACK, fontSize: 70, color: '#fff', lineHeight: 1.1}}>
+                {p.monogram}
+              </div>
+            </div>
+          ) : null}
+          <Grain w={1080} h={1080} amount={0.14} />
         </AbsoluteFill>
       );
     }
