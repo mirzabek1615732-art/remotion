@@ -1,68 +1,80 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
-import {loadFonts} from '../fonts';
-import {COLORS} from '../theme';
+import {loadBrandFonts} from './fonts';
 
-loadFonts();
+loadBrandFonts();
 
-export type CoverIcon = 'results' | 'courses' | 'about' | 'free' | 'faq';
+export type CoverIcon = 'results' | 'courses' | 'about' | 'free' | 'faq' | 'school';
 
-const Icon: React.FC<{icon: CoverIcon}> = ({icon}) => {
-  const s = {stroke: COLORS.navy, strokeWidth: 22, strokeLinecap: 'round', strokeLinejoin: 'round', fill: 'none'} as const;
+const W = '#FFFFFF';
+// heavy, square-ended strokes to match the logo's block lettering
+const s = {stroke: W, strokeWidth: 30, strokeLinecap: 'square', strokeLinejoin: 'miter', fill: 'none'} as const;
+
+const Icon: React.FC<{icon: CoverIcon; monogram: string}> = ({icon, monogram}) => {
   switch (icon) {
-    case 'results': // rising bars + arrow
+    case 'results': // rising bars with an arrow breaking out of the top
       return (
         <g>
-          <rect x={-150} y={20} width={70} height={110} rx={14} fill={COLORS.navy} />
-          <rect x={-35} y={-50} width={70} height={180} rx={14} fill={COLORS.navy} />
-          <rect x={80} y={-130} width={70} height={260} rx={14} fill={COLORS.navy} />
-          <path d="M -160 -60 L -40 -150 L 20 -110 L 130 -200" {...s} />
-          <path d="M 70 -205 L 135 -205 L 135 -140" {...s} />
+          <rect x={-130} y={40} width={58} height={90} fill={W} />
+          <rect x={-29} y={-20} width={58} height={150} fill={W} />
+          <rect x={72} y={-80} width={58} height={210} fill={W} />
+          <path d="M -130 -40 L -10 -140 L 90 -140" {...s} />
+          <path d="M 60 -185 L 115 -140 L 60 -95" {...s} />
         </g>
       );
-    case 'courses': // open book
+    case 'courses': // two stacked books, open book on top
       return (
         <g>
-          <path d="M 0 -110 Q -90 -150 -180 -120 L -180 120 Q -90 90 0 130 Q 90 90 180 120 L 180 -120 Q 90 -150 0 -110 Z" {...s} />
-          <path d="M 0 -110 L 0 130" {...s} />
-          <path d="M -130 -60 L -50 -70 M -130 0 L -50 -10 M 50 -70 L 130 -60 M 50 -10 L 130 0" {...s} strokeWidth={16} />
+          <rect x={-140} y={60} width={280} height={40} fill={W} />
+          <rect x={-120} y={115} width={240} height={30} fill={W} />
+          <path d="M 0 -130 L -140 -150 L -140 30 L 0 45 L 140 30 L 140 -150 Z" {...s} />
+          <path d="M 0 -130 L 0 45" {...s} />
         </g>
       );
-    case 'about': // person
+    case 'about': // bust
       return (
         <g>
-          <circle cx={0} cy={-80} r={75} {...s} />
-          <path d="M -150 170 Q -150 30 0 30 Q 150 30 150 170" {...s} />
+          <circle cx={0} cy={-88} r={66} fill={W} />
+          <path d="M -135 140 L -135 40 L -60 0 L 60 0 L 135 40 L 135 140 Z" fill={W} />
         </g>
       );
-    case 'free': // gift
+    case 'free': // gift box with bow
       return (
         <g>
-          <rect x={-160} y={-40} width={320} height={190} rx={18} {...s} />
-          <rect x={-180} y={-100} width={360} height={70} rx={18} {...s} />
-          <path d="M 0 -100 L 0 150" {...s} />
-          <path d="M 0 -100 Q -90 -200 -100 -130 Q -100 -100 0 -100 Q 100 -100 100 -130 Q 90 -200 0 -100" {...s} />
+          <rect x={-130} y={-30} width={260} height={170} {...s} />
+          <rect x={-150} y={-90} width={300} height={60} fill={W} />
+          <rect x={-16} y={-90} width={32} height={230} fill={W} />
+          <path d="M 0 -95 L -85 -160 L -100 -95 M 0 -95 L 85 -160 L 100 -95" {...s} />
         </g>
       );
-    case 'faq': // question bubble
+    case 'faq': // question mark inside a speech block
       return (
         <g>
-          <path d="M -170 -130 Q -170 -180 -120 -180 L 120 -180 Q 170 -180 170 -130 L 170 60 Q 170 110 120 110 L -20 110 L -110 180 L -100 110 L -120 110 Q -170 110 -170 60 Z" {...s} />
-          <path d="M -45 -85 Q -45 -130 0 -130 Q 50 -130 50 -85 Q 50 -45 0 -30 L 0 5" {...s} />
-          <circle cx={0} cy={55} r={14} fill={COLORS.navy} />
+          <path d="M -150 -150 L 150 -150 L 150 70 L -20 70 L -95 140 L -95 70 L -150 70 Z" {...s} />
+          <text y={46} textAnchor="middle" fontFamily="Archivo Black" fontSize={210} fill={W}>
+            ?
+          </text>
         </g>
+      );
+    case 'school': // the logo monogram itself
+      return (
+        <text y={52} textAnchor="middle" fontFamily="Archivo Black" fontSize={150} textLength={250} lengthAdjust="spacingAndGlyphs" fill={W}>
+          {monogram}
+        </text>
       );
   }
 };
 
-/** Instagram story-highlight cover: 1080×1920, icon in the centre circle. */
-export const HighlightCover: React.FC<{icon: CoverIcon}> = ({icon}) => (
-  <AbsoluteFill style={{background: COLORS.blue}}>
+/**
+ * Story-highlight cover, 1080×1920: black, with the icon inside a white
+ * square cell borrowed from the school logo. Instagram shows the centre circle.
+ */
+export const HighlightCover: React.FC<{icon: CoverIcon; monogram: string}> = ({icon, monogram}) => (
+  <AbsoluteFill style={{background: '#000'}}>
     <svg viewBox="0 0 1080 1920" width={1080} height={1920}>
-      <circle cx={540} cy={960} r={430} fill={COLORS.yellow} />
-      <circle cx={540} cy={960} r={430} fill="none" stroke={COLORS.navy} strokeWidth={18} />
-      <g transform="translate(540 975)">
-        <Icon icon={icon} />
+      <rect x={540 - 290} y={960 - 290} width={580} height={580} fill="none" stroke={W} strokeWidth={14} />
+      <g transform="translate(540 960) scale(1.3)">
+        <Icon icon={icon} monogram={monogram} />
       </g>
     </svg>
   </AbsoluteFill>

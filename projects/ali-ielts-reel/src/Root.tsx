@@ -5,13 +5,24 @@ import {TIMELINE, FPS} from './episode/timeline';
 import {Reel} from './Reel';
 import {Thumbnail} from './Thumbnail';
 import {HighlightCover} from './brand/HighlightCover';
+import {LogoStill} from './brand/LogoStill';
+import {LogoReveal} from './brand/LogoReveal';
 import {VIDEO} from './theme';
 
 export const RemotionRoot: React.FC = () => (
   <>
     <Composition id="AliIeltsReel" component={Reel} durationInFrames={TIMELINE.durationInFrames} fps={FPS} width={VIDEO.width} height={VIDEO.height} />
     <Still id="Thumbnail" component={Thumbnail} width={VIDEO.width} height={VIDEO.height} />
-    <Still id="HighlightCover" component={HighlightCover} width={VIDEO.width} height={VIDEO.height} defaultProps={{icon: 'results' as const}} />
+    <Still id="HighlightCover" component={HighlightCover} width={VIDEO.width} height={VIDEO.height} defaultProps={{icon: 'results' as const, monogram: 'BS'}} />
+    <Still
+      id="LogoStill"
+      component={LogoStill}
+      width={1254}
+      height={1254}
+      defaultProps={{monogram: 'YS', line1: 'YOUR NAME', line2: 'SCHOOL', tagline: 'YOUR TAGLINE', transparent: false}}
+    />
+    <Composition id="LogoRevealSquare" component={LogoReveal} durationInFrames={120} fps={30} width={1080} height={1080} defaultProps={{monogram: 'YS', line1: 'YOUR NAME', line2: 'SCHOOL', tagline: 'YOUR TAGLINE', transparent: false, sound: true}} />
+    <Composition id="LogoRevealVertical" component={LogoReveal} durationInFrames={120} fps={30} width={1080} height={1920} defaultProps={{monogram: 'YS', line1: 'YOUR NAME', line2: 'SCHOOL', tagline: 'YOUR TAGLINE', transparent: false, sound: true}} />
     <Still id="CharacterSheet" component={CharacterSheet} width={VIDEO.width} height={VIDEO.height} />
   </>
 );
