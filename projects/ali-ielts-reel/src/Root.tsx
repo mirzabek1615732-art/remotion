@@ -8,6 +8,7 @@ import {HighlightCover} from './brand/HighlightCover';
 import {LogoStill} from './brand/LogoStill';
 import {LogoReveal} from './brand/LogoReveal';
 import {PortraitOptions} from './brand/PortraitOptions';
+import {TeacherCover} from './brand/TeacherCover';
 import {introDuration, TeacherIntroReel, type IntroProps} from './brand/TeacherIntroReel';
 import {VIDEO} from './theme';
 
@@ -47,6 +48,7 @@ const INTRO_DEFAULTS: IntroProps = {
   schoolLine2: 'SCHOOL',
   tagline: 'TAGLINE',
   music: 'audio/music_brand.wav',
+  musicGain: 1,
 };
 
 export const RemotionRoot: React.FC = () => (
@@ -75,6 +77,13 @@ export const RemotionRoot: React.FC = () => (
       durationInFrames={75}
       defaultProps={INTRO_DEFAULTS}
       calculateMetadata={({props}) => ({durationInFrames: introDuration(props)})}
+    />
+    <Still
+      id="TeacherCover"
+      component={TeacherCover}
+      width={1080}
+      height={1920}
+      defaultProps={{frame: 'private/cover_frame.png', cutout: 'private/cutout.png', big1: 'BIG', big2: 'TEXT', name: 'TEACHER NAME', facts: ['FACT 1', 'FACT 2'], guide: false}}
     />
     <Still id="CharacterSheet" component={CharacterSheet} width={VIDEO.width} height={VIDEO.height} />
   </>

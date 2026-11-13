@@ -70,6 +70,8 @@ export type IntroProps = {
   schoolLine2: string;
   tagline: string;
   music: string;
+  /** 0 = no music bed (e.g. when music is added inside Instagram) */
+  musicGain: number;
 };
 
 const FPS = 30;
@@ -542,6 +544,7 @@ const CtaSeg: React.FC<{p: IntroProps; seg: Seg}> = ({p, seg}) => {
 /* ---------------- master ---------------- */
 export const TeacherIntroReel: React.FC<IntroProps> = (p) => {
   const {durationInFrames} = useVideoConfig();
+  const frame = useCurrentFrame();
   const comps = [HookSeg, NameSeg, CredSeg, ResultsSeg, CtaSeg];
   const starts: number[] = [];
   let acc = 0;
@@ -568,12 +571,14 @@ export const TeacherIntroReel: React.FC<IntroProps> = (p) => {
           </Sequence>
         ) : null,
       )}
+      {/* dip to black into the logo, for cuts that end mid-sentence */}
+      <AbsoluteFill style={{background: '#000', opacity: interpolate(frame, [outroAt - 6, outroAt], [0, 1], clamp), pointerEvents: 'none'}} />
       <Sequence from={outroAt} name="logo">
         <LogoReveal monogram={p.monogram} line1={p.schoolLine1} line2={p.schoolLine2} tagline={p.tagline} transparent={false} sound />
       </Sequence>
       <Html5Audio
         src={staticFile(p.music)}
-        volume={(f) => interpolate(f, [0, 10, outroAt - 10, outroAt + 6, durationInFrames - 20, durationInFrames], [0, 0.07, 0.07, 0.2, 0.2, 0], clamp)}
+        volume={(f) => interpolate(f, [0, 10, outroAt - 10, outroAt + 6, durationInFrames - 20, durationInFrames], [0, 0.07, 0.07, 0.2, 0.2, 0], clamp) * p.musicGain}
       />
     </AbsoluteFill>
   );
