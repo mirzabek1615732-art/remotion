@@ -406,10 +406,10 @@ const ResultsSeg: React.FC<{p: IntroProps; seg: Seg}> = ({p, seg}) => {
       {f >= cIn ? (
         <>
           <Sequence from={cIn} durationInFrames={half} layout="none">
-            <StudentCert src={p.certs.studentA} focus={p.certFocus.studentA} dur={half} />
+            <StudentCert src={p.certs.studentA} focus={p.certFocus.studentA} dur={half} fadeIn />
           </Sequence>
           <Sequence from={cIn + half} durationInFrames={end - cIn - half} layout="none">
-            <StudentCert src={p.certs.studentB} focus={p.certFocus.studentB} dur={end - cIn - half} />
+            <StudentCert src={p.certs.studentB} focus={p.certFocus.studentB} dur={end - cIn - half} fadeIn={false} />
           </Sequence>
           <Reveal f={f} at={cIn + 4} from="up" style={{left: 0, right: 0, top: 250, display: 'flex', justifyContent: 'center'}}>
             <Cell light style={{display: 'flex', alignItems: 'center', gap: 20}}>
@@ -433,10 +433,12 @@ const ResultsSeg: React.FC<{p: IntroProps; seg: Seg}> = ({p, seg}) => {
   );
 };
 
-const StudentCert: React.FC<{src: string; focus: [number, number]; dur: number}> = ({src, focus, dur}) => {
+/** fadeIn only for the first cutaway; a cert that follows another cert cuts in
+ * hard, otherwise the talking clip underneath ghosts through the fade. */
+const StudentCert: React.FC<{src: string; focus: [number, number]; dur: number; fadeIn: boolean}> = ({src, focus, dur, fadeIn}) => {
   const f = useCurrentFrame();
   return (
-    <AbsoluteFill style={{opacity: io(f, 0, 3)}}>
+    <AbsoluteFill style={{opacity: fadeIn ? io(f, 0, 3) : 1}}>
       <CertShot src={src} f={f} dur={dur} focus={focus} zoom={1.9} ring />
     </AbsoluteFill>
   );
