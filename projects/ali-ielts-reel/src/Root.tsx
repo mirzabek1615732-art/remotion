@@ -9,6 +9,7 @@ import {LogoStill} from './brand/LogoStill';
 import {LogoReveal} from './brand/LogoReveal';
 import {PortraitOptions} from './brand/PortraitOptions';
 import {TeacherCover} from './brand/TeacherCover';
+import {CoverOptions} from './brand/CoverOptions';
 import {introDuration, TeacherIntroReel, type IntroProps} from './brand/TeacherIntroReel';
 import {VIDEO} from './theme';
 
@@ -84,6 +85,13 @@ export const RemotionRoot: React.FC = () => (
       width={1080}
       height={1920}
       defaultProps={{frame: 'private/cover_frame.png', cutout: 'private/cutout.png', big1: 'BIG', big2: 'TEXT', name: 'TEACHER NAME', facts: ['FACT 1', 'FACT 2'], guide: false}}
+    />
+    <Still
+      id="CoverOptions"
+      component={CoverOptions}
+      width={1080}
+      height={1920}
+      defaultProps={{variant: 'magazine' as const, portrait: 'private/teacher_cutout.png', schoolFrame: 'private/cover_school.png', cert: 'private/certs/mine_ielts.jpg', certFocus: [540, 960] as [number, number], name: 'TEACHER NAME', headline: 'HEADLINE', score: '0.0', facts: ['FACT']}}
     />
     <Still id="CharacterSheet" component={CharacterSheet} width={VIDEO.width} height={VIDEO.height} />
   </>
