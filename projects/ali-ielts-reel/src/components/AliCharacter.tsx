@@ -21,7 +21,11 @@ export type ExpressionName =
   | 'disappointed'
   | 'motivated'
   | 'confident'
-  | 'sheepish';
+  | 'sheepish'
+  | 'panic'
+  | 'idea'
+  | 'focused'
+  | 'proud';
 
 export type Expression = {
   /** brow height (-1 low … 1 high) */
@@ -53,6 +57,11 @@ export const EXPRESSIONS: Record<ExpressionName, Expression> = {
   motivated: {browRaise: -0.25, browAngle: 20, browAsym: 0, eyeOpen: 0.95, eyeScale: 1.02, pupilScale: 1.05, smile: 0.55, mouthOpen: 0.25, mouthWidth: 1.15, blush: 0.25, sweat: 0},
   confident: {browRaise: 0.1, browAngle: 8, browAsym: 0.7, eyeOpen: 0.8, eyeScale: 1, pupilScale: 1, smile: 0.85, mouthOpen: 0.12, mouthWidth: 1.25, blush: 0.3, sweat: 0},
   sheepish: {browRaise: 0.35, browAngle: -16, browAsym: 0.2, eyeOpen: 0.85, eyeScale: 1, pupilScale: 1, smile: 0.6, mouthOpen: 0.1, mouthWidth: 1.25, blush: 0.75, sweat: 0.8},
+  // Episode 3 additions
+  panic: {browRaise: 1.5, browAngle: -18, browAsym: 0, eyeOpen: 1, eyeScale: 1.38, pupilScale: 0.42, smile: -0.55, mouthOpen: 0.95, mouthWidth: 0.95, blush: 0, sweat: 1},
+  idea: {browRaise: 1.1, browAngle: -4, browAsym: 0, eyeOpen: 1, eyeScale: 1.18, pupilScale: 1.2, smile: 0.8, mouthOpen: 0.45, mouthWidth: 1.05, blush: 0.4, sweat: 0},
+  focused: {browRaise: -0.4, browAngle: 14, browAsym: 0.15, eyeOpen: 0.72, eyeScale: 1, pupilScale: 1.05, smile: 0.2, mouthOpen: 0, mouthWidth: 0.85, blush: 0.1, sweat: 0},
+  proud: {browRaise: 0.4, browAngle: 6, browAsym: 0.5, eyeOpen: 0.7, eyeScale: 1.02, pupilScale: 1, smile: 1, mouthOpen: 0.35, mouthWidth: 1.4, blush: 0.55, sweat: 0},
 };
 
 export type HandShape = 'fist' | 'point' | 'open' | 'pointFront' | 'thumbsUp';
@@ -200,8 +209,10 @@ const limb = (ox: number, oy: number, a1: number, a2: number, l1: number, l2: nu
   return {jx, jy, ex, ey, endAngle: (a1 + a2) * side};
 };
 
-const autoBlink = (frame: number) => {
-  // deterministic irregular blinking: every 70–110 frames, 6 frames long
+const autoBlink = (raw: number) => {
+  // deterministic irregular blinking: every 70–110 frames, 6 frames long.
+  // Phase-shifted so Ali never blinks on the first frames after a cut.
+  const frame = raw + 48;
   const period = 97;
   const local = (frame + Math.floor(frame / period) * 23) % period;
   if (local < 3) return local / 3;

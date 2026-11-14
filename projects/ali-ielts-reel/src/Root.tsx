@@ -10,6 +10,8 @@ import {LogoReveal} from './brand/LogoReveal';
 import {PortraitOptions} from './brand/PortraitOptions';
 import {TeacherCover} from './brand/TeacherCover';
 import {CoverOptions} from './brand/CoverOptions';
+import {EP03_DURATION, Ep03AliReading} from './episodes/ep03/composition';
+import {Ep03Thumbnail} from './episodes/ep03/thumbnail/Ep03Thumbnail';
 import {introDuration, TeacherIntroReel, type IntroProps} from './brand/TeacherIntroReel';
 import {VIDEO} from './theme';
 
@@ -56,6 +58,7 @@ export const RemotionRoot: React.FC = () => (
   <>
     <Composition id="AliIeltsReel" component={Reel} durationInFrames={TIMELINE.durationInFrames} fps={FPS} width={VIDEO.width} height={VIDEO.height} />
     <Still id="Thumbnail" component={Thumbnail} width={VIDEO.width} height={VIDEO.height} />
+    <Still id="Ep03Thumbnail" component={Ep03Thumbnail} width={1080} height={1920} />
     <Still id="HighlightCover" component={HighlightCover} width={VIDEO.width} height={VIDEO.height} defaultProps={{icon: 'results' as const, monogram: 'BS'}} />
     <Still
       id="LogoStill"
@@ -93,6 +96,7 @@ export const RemotionRoot: React.FC = () => (
       height={1920}
       defaultProps={{variant: 'magazine' as const, portrait: 'private/teacher_cutout.png', schoolFrame: 'private/cover_school.png', cert: 'private/certs/mine_ielts.jpg', certFocus: [540, 960] as [number, number], name: 'TEACHER NAME', headline: 'HEADLINE', score: '0.0', facts: ['FACT']}}
     />
+    <Composition id="Ep03AliReading" component={Ep03AliReading} durationInFrames={EP03_DURATION} fps={30} width={1080} height={1920} defaultProps={{stem: 'all' as const}} />
     <Still id="CharacterSheet" component={CharacterSheet} width={VIDEO.width} height={VIDEO.height} />
   </>
 );
