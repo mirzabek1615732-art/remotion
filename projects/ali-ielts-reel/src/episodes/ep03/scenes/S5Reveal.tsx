@@ -104,7 +104,7 @@ export const S5Reveal: React.FC<{scene: TLScene}> = ({scene}) => {
         {phaseB ? (
           <AbsoluteFill>
             {/* step list */}
-            <div style={{position: 'absolute', left: 50, right: 50, top: 150, display: 'flex', flexDirection: 'column', gap: 16}}>
+            <div style={{position: 'absolute', left: 50, right: 50, top: 190, display: 'flex', flexDirection: 'column', gap: 10}}>
               {steps.map((s) => {
                 if (f < s.at) return null;
                 const p = pop(f, s.at, 30, {damping: 13, stiffness: 200});
@@ -137,14 +137,14 @@ export const S5Reveal: React.FC<{scene: TLScene}> = ({scene}) => {
             </div>
             {/* question card */}
             {f >= S1 ? (
-              <div style={{...card, position: 'absolute', left: 70, right: 70, top: 450, transform: `scale(${0.85 + 0.15 * pop(f, S1)})`, fontFamily: FONT_FAMILY, fontSize: 46, lineHeight: 1.35, color: COLORS.navy}}>
+              <div style={{...card, position: 'absolute', left: 70, right: 70, top: 490, transform: `scale(${0.85 + 0.15 * pop(f, S1)})`, fontFamily: FONT_FAMILY, fontSize: 46, lineHeight: 1.35, color: COLORS.navy}}>
                 <div style={{fontWeight: 900, fontSize: 30, letterSpacing: 4, color: COLORS.blue, marginBottom: 6}}>QUESTION 1</div>
-                When did the <Mark p={kw} color={COLORS.yellow} bold>central library</Mark> start opening at <Mark p={kw - 0.2} color={COLORS.yellow} bold>weekends</Mark>?
+                When did the <Mark p={kw} color={COLORS.yellow} bold>central library</Mark> start opening at <Mark p={tween(f, [KEY + 4, KEY + 14], [0, 1])} color={COLORS.yellow} bold>weekends</Mark>?
               </div>
             ) : null}
             {/* passage card with scan beam */}
             {f >= S2 + 6 ? (
-              <div style={{...card, position: 'absolute', left: 70, right: 70, top: 760, transform: `translateY(${(1 - passIn) * 120}px)`, opacity: Math.min(1, passIn * 1.5), fontFamily: 'Georgia, serif', fontSize: 44, lineHeight: 1.5, color: COLORS.ink, overflow: 'hidden'}}>
+              <div style={{...card, position: 'absolute', left: 70, right: 70, top: 730, transform: `translateY(${(1 - passIn) * 120}px)`, opacity: Math.min(1, passIn * 1.5), fontFamily: 'Georgia, serif', fontSize: 40, lineHeight: 1.5, color: COLORS.ink, overflow: 'hidden'}}>
                 <div style={{fontFamily: FONT_FAMILY, fontWeight: 900, fontSize: 30, letterSpacing: 4, color: COLORS.blue, marginBottom: 4}}>PASSAGE</div>
                 Reading habits in the city have changed in recent years. In <Mark p={found} color="#86EFAC" bold>2019</Mark>, the{' '}
                 <Mark p={found} color="#86EFAC" bold>central library began opening at weekends</Mark>, and the number of visitors rose by a third.
@@ -155,9 +155,9 @@ export const S5Reveal: React.FC<{scene: TLScene}> = ({scene}) => {
             ) : null}
             {/* answer + honest note */}
             {f >= FOUND + 8 ? (
-              <div style={{position: 'absolute', left: 40, right: 40, top: 1080, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 16, transform: `scale(${answer})`, transformOrigin: 'center top'}}>
-                <div style={{background: COLORS.green, color: COLORS.white, border: `5px solid ${COLORS.ink}`, borderRadius: 999, padding: '10px 30px', fontFamily: FONT_FAMILY, fontWeight: 900, fontSize: 52}}>JAVOB: 2019 ✓</div>
-                <div style={{background: COLORS.white, color: COLORS.navy, border: `4px solid ${COLORS.ink}`, borderRadius: 18, padding: '8px 18px', fontFamily: FONT_FAMILY, fontWeight: 800, fontSize: 28}}>Topilgan joyni diqqat bilan o‘qi!</div>
+              <div style={{position: 'absolute', left: 40, right: 40, top: 1060, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 8, transform: `scale(${answer})`, transformOrigin: 'center top'}}>
+                <div style={{background: COLORS.green, color: COLORS.white, border: `5px solid ${COLORS.ink}`, borderRadius: 999, padding: '10px 30px', fontFamily: FONT_FAMILY, fontWeight: 900, fontSize: 48, whiteSpace: 'nowrap'}}>JAVOB: 2019 ✓</div>
+                <div style={{background: COLORS.white, color: COLORS.navy, border: `4px solid ${COLORS.ink}`, borderRadius: 18, padding: '8px 18px', fontFamily: FONT_FAMILY, fontWeight: 800, fontSize: 30, whiteSpace: 'nowrap'}}>Topilgan joyni diqqat bilan o‘qi!</div>
               </div>
             ) : null}
           </AbsoluteFill>

@@ -23,9 +23,17 @@ const Choice: React.FC<{x: number; y: number; p: number; active: number; label: 
     <rect x={-215} y={-200} width={430} height={400} rx={40} fill={COLORS.ink} opacity={0.3} transform="translate(10 12)" />
     <rect x={-215} y={-200} width={430} height={400} rx={40} fill={color} stroke={active > 0.5 ? COLORS.yellow : COLORS.ink} strokeWidth={active > 0.5 ? 14 : 8} />
     <g transform="translate(0 -50)">{icon === 'clock' ? <ClockIcon size={95} t={t} /> : <BookIcon size={95} />}</g>
-    <text y={130} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={label.length > 10 ? 40 : 60} fill={COLORS.white} stroke={COLORS.ink} strokeWidth={8} paintOrder="stroke">
-      {label}
-    </text>
+    {label.split(' ').length > 1 ? (
+      label.split(' ').map((w, i) => (
+        <text key={w} y={108 + i * 54} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={48} fill={COLORS.white} stroke={COLORS.ink} strokeWidth={8} paintOrder="stroke">
+          {w}
+        </text>
+      ))
+    ) : (
+      <text y={130} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={60} fill={COLORS.white} stroke={COLORS.ink} strokeWidth={8} paintOrder="stroke">
+        {label}
+      </text>
+    )}
   </g>
 );
 
@@ -50,6 +58,7 @@ export const S8Ending: React.FC<{scene: TLScene}> = ({scene}) => {
       {at: VAQT - 4, v: {...POSES.stand, armL: [120, 10], armR: [10, 20], lookX: -0.9, lookY: -0.5, headTurn: -0.5}, dur: 5},
       {at: NOT - 4, v: {...POSES.stand, armR: [120, 10], armL: [10, 20], lookX: 0.9, lookY: -0.5, headTurn: 0.5}, dur: 5},
       {at: IZOH - 4, v: {...POSES.pointViewer, lookX: 0, lookY: 0}, dur: 5},
+      {at: FOLLOWQ + 4, v: {...POSES.pointUpRight, armR: [125, 10], lookX: 0.3, lookY: -0.8, headTurn: 0.2}, dur: 6},
       {at: OBUNA - 6, v: {...POSES.thumbsUp, lookX: 0.4, lookY: -0.3}, dur: 6},
       {at: finalAt, v: {...POSES.fistUp, lookX: 0, lookY: -0.2}, dur: 6},
     ],
@@ -62,20 +71,20 @@ export const S8Ending: React.FC<{scene: TLScene}> = ({scene}) => {
       {at: SENCHI - 2, v: EXPRESSIONS.excited, dur: 4},
       {at: Q + 10, v: mixExpression(EXPRESSIONS.confident, EXPRESSIONS.idea, 0.4), dur: 6},
       {at: IZOH - 4, v: EXPRESSIONS.excited, dur: 5},
-      {at: OBUNA - 6, v: EXPRESSIONS.proud, dur: 5},
+      {at: OBUNA - 6, v: EXPRESSIONS.excited, dur: 5},
     ],
     mixExpression,
   );
   const handR = f >= OBUNA - 6 && f < finalAt ? 'thumbsUp' : f >= finalAt ? 'fist' : f >= NOT - 4 || (f >= SENCHI - 2 && f < VAQT - 4) || f >= IZOH - 4 ? 'point' : 'open';
   const handL = f >= VAQT - 4 && f < NOT - 4 ? 'point' : 'open';
 
-  const choicesOn = f >= Q && f < FOLLOWQ;
+  const choicesOn = f >= Q && f < IZOH + 8;
   const cA = pop(f, Q + 4, 30, {damping: 11, stiffness: 200});
   const cB = pop(f, Q + 10, 30, {damping: 11, stiffness: 200});
   const aOn = tween(f, [VAQT - 2, VAQT + 4], [0, 1]) * (1 - tween(f, [NOT - 2, NOT + 4], [0, 1]));
   const bOn = tween(f, [NOT - 2, NOT + 4], [0, 1]) * (1 - tween(f, [IZOH - 2, IZOH + 4], [0, 1]));
-  const choicesY = 700 - tween(f, [IZOH - 4, IZOH + 6], [0, 170], EASE.inOut);
-  const choicesS = 1 - 0.42 * tween(f, [IZOH - 4, IZOH + 6], [0, 1], EASE.inOut);
+  const choicesY = 700;
+  const choicesS = 1 - tween(f, [IZOH, IZOH + 8], [0, 1], EASE.in);
 
   const tap = OBUNA + 4;
   const followed = f >= tap;
@@ -122,7 +131,7 @@ export const S8Ending: React.FC<{scene: TLScene}> = ({scene}) => {
             const p = pop(f, at, 30, {damping: 12, stiffness: 220});
             const out = tween(f, [FOLLOWQ, FOLLOWQ + 10], [1, 0]);
             return (
-              <div key={i} style={{position: 'absolute', top: 700 + i * 170, [c.side < 0 ? 'left' : 'right']: 50, transform: `scale(${p * out})`, transformOrigin: c.side < 0 ? 'left center' : 'right center', display: 'flex', alignItems: 'center', gap: 14, background: COLORS.white, border: `5px solid ${COLORS.ink}`, borderRadius: 30, padding: '12px 24px 12px 12px', boxShadow: '6px 8px 0 rgba(0,0,0,0.3)'}}>
+              <div key={i} style={{position: 'absolute', top: 480 + i * 160, [c.side < 0 ? 'left' : 'right']: 50, transform: `scale(${p * out})`, transformOrigin: c.side < 0 ? 'left center' : 'right center', display: 'flex', alignItems: 'center', gap: 14, background: COLORS.white, border: `5px solid ${COLORS.ink}`, borderRadius: 30, padding: '12px 24px 12px 12px', boxShadow: '6px 8px 0 rgba(0,0,0,0.3)'}}>
                 <div style={{width: 76, height: 76, borderRadius: 38, background: [COLORS.orange, COLORS.green, COLORS.yellow][i], border: `4px solid ${COLORS.ink}`}} />
                 <div style={{fontFamily: FONT_FAMILY}}>
                   <div style={{fontWeight: 800, fontSize: 30, color: '#64748B'}}>@{c.name}</div>
@@ -138,9 +147,9 @@ export const S8Ending: React.FC<{scene: TLScene}> = ({scene}) => {
           <div style={{background: followed ? COLORS.white : COLORS.blue, color: followed ? COLORS.navy : COLORS.white, border: `7px solid ${COLORS.ink}`, borderRadius: 999, padding: '22px 70px', fontFamily: FONT_FAMILY, fontWeight: 900, fontSize: 72, boxShadow: '10px 12px 0 rgba(0,0,0,0.35)'}}>{followed ? '✓ OBUNA BO‘LDINGIZ' : '+ OBUNA BO‘LISH'}</div>
         </div>
       ) : null}
-      {/* tapping finger */}
-      {f >= OBUNA - 8 && f < tap + 12 ? (
-        <div style={{position: 'absolute', left: 640, top: 830 + (f < tap ? (tap - f) * 8 : 0), width: 90, height: 120, borderRadius: '45px 45px 30px 30px', background: '#F2C29B', border: `6px solid ${COLORS.ink}`, opacity: tween(f, [tap + 6, tap + 12], [1, 0])}} />
+      {/* tap ripple on the follow button */}
+      {f >= tap && f < tap + 16 ? (
+        <div style={{position: 'absolute', left: 540 - 60, top: 815 - 60, width: 120, height: 120, borderRadius: 60, border: `8px solid ${COLORS.yellow}`, transform: `scale(${1 + (f - tap) / 5})`, opacity: 1 - (f - tap) / 16}} />
       ) : null}
       <At x={540} y={190}>
         {f < Q ? <AnimatedText text={'SEN-CHI?'} from={SENCHI} stagger={4} entrance="slam" size={150} accentWords={['SEN-CHI?']} /> : null}

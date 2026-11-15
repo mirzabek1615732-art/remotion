@@ -36,6 +36,17 @@ const twoLines = (ws: TLWord[]) => {
   return [ws.slice(0, best), ws.slice(best)];
 };
 
+/** Solid outer outline (outside the glyphs, unlike text-stroke) plus a drop shadow. */
+const outline = (w: number) => {
+  const out: string[] = [];
+  for (let k = 0; k < 16; k++) {
+    const a = (k / 16) * Math.PI * 2;
+    out.push(`${(Math.cos(a) * w).toFixed(1)}px ${(Math.sin(a) * w).toFixed(1)}px 0 ${COLORS.navy}`);
+  }
+  out.push(`0 ${w + 4}px 0 ${COLORS.navy}`);
+  return out.join(', ');
+};
+
 /** Shrink the font so the longest row fits the 920px safe width. */
 const fitSize = (rows: TLWord[][]) => {
   const chars = Math.max(...rows.map((r) => r.reduce((n, w) => n + w.text.length, 0) + (r.length - 1) * 0.35));
@@ -60,7 +71,7 @@ export const EpisodeSubtitles: React.FC<{lines: TLLine[]; hideIds?: string[]; to
     <AbsoluteFill style={{pointerEvents: 'none'}}>
       <div style={{position: 'absolute', left: 80, right: 80, top, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, transform: `translateY(${(1 - enter) * 30}px) scale(${0.9 + 0.1 * enter})`, opacity: Math.min(1, enter * 1.8)}}>
         {twoLines(page).map((row, r, rows) => (
-          <div key={r} style={{display: 'flex', gap: 18, justifyContent: 'center', whiteSpace: 'nowrap'}}>
+          <div key={r} style={{display: 'flex', gap: Math.round(fitSize(rows) * 0.34), justifyContent: 'center', whiteSpace: 'nowrap'}}>
             {row.map((w, i) => {
               const active = f >= w.from && f < w.to + 2;
               const said = f >= w.from - 1;
@@ -74,12 +85,13 @@ export const EpisodeSubtitles: React.FC<{lines: TLLine[]; hideIds?: string[]; to
                     lineHeight: 1.15,
                     textTransform: 'uppercase',
                     color: w.highlight ? COLORS.yellow : COLORS.white,
-                    opacity: said ? 1 : 0.6,
-                    WebkitTextStroke: `11px ${COLORS.navy}`,
+                    opacity: 1,
+                    filter: said ? undefined : 'brightness(0.82)',
+                    WebkitTextStroke: `0px ${COLORS.navy}`,
                     paintOrder: 'stroke fill',
-                    textShadow: `0 6px 0 ${COLORS.navy}`,
+                    textShadow: outline(Math.max(4, Math.round(fitSize(rows) * 0.07))),
                     display: 'inline-block',
-                    transform: `scale(${active ? 1.1 : 1}) translateY(${active ? -4 : 0}px)`,
+                    transform: `scale(${active ? 1.06 : 1}) translateY(${active ? -3 : 0}px)`,
                   }}
                 >
                   {w.text}

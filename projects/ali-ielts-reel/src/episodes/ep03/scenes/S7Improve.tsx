@@ -98,9 +98,9 @@ export const S7Improve: React.FC<{scene: TLScene}> = ({scene}) => {
             ) : null}
           </g>
           <AliCharacter x={540} y={1850} scale={1.25} pose={pose} expression={expr} handL="open" handR={f >= WIN - 2 ? 'fist' : 'open'} itemR={f >= SCAN - 6 && f < WIN - 2 ? 'highlighter' : 'none'} shadow={0} />
-          <Desk x={540} y={1400} width={980} />
+          <Desk x={540} y={1400} width={980} toFloor />
           {slide < 1 ? (
-            <g transform={`translate(${250 - slide * 700} ${1290}) rotate(${-slide * 30})`}>
+            <g transform={`translate(${250 - slide * 700} ${1400}) rotate(${-slide * 30})`}>
               <Dictionary w={200} h={250} open={shut} />
             </g>
           ) : null}

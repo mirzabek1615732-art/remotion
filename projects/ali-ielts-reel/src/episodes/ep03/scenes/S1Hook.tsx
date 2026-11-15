@@ -77,7 +77,7 @@ export const S1Hook: React.FC<{scene: TLScene}> = ({scene}) => {
             : null}
           <AliCharacter x={x} y={1790} scale={1.62} squash={stretch} rotate={lean} pose={pose} expression={expr} handL="open" handR={f >= BOOK + 4 ? 'fist' : 'open'} shadow={0} />
           <g transform={`translate(${deskShake} 0)`}>
-            <Desk x={540} y={1240} width={900} />
+            <Desk x={540} y={1240} width={900} toFloor />
             <g transform={`translate(830 ${bookY}) scale(${1 + bookSquash * 0.5} ${1 - bookSquash})`}>
               <IeltsBook x={0} y={-130} width={200} rotate={-90} />
               <text x={0} y={-232} textAnchor="middle" fontFamily="Montserrat" fontWeight={900} fontSize={40} fill={COLORS.white} stroke={COLORS.navy} strokeWidth={8} paintOrder="stroke">

@@ -69,15 +69,48 @@ export const Clock: React.FC<{x: number; y: number; r?: number; hours: number; w
   );
 };
 
-/** Exam desk seen from the front; origin = centre of desk top edge. */
-export const Desk: React.FC<{x: number; y: number; width?: number; color?: string}> = ({x, y, width = 760, color = '#B45309'}) => (
-  <g transform={`translate(${x} ${y})`}>
-    <rect x={-width / 2} y={0} width={width} height={46} rx={12} fill={color} stroke={COLORS.ink} strokeWidth={7} />
-    <rect x={-width / 2 + 30} y={46} width={width - 60} height={320} fill="#92400E" stroke={COLORS.ink} strokeWidth={7} />
-    <rect x={-width / 2 + 60} y={80} width={width - 120} height={110} rx={10} fill="#78350F" stroke={COLORS.ink} strokeWidth={5} />
-    <circle cx={0} cy={135} r={12} fill={COLORS.yellow} stroke={COLORS.ink} strokeWidth={4} />
-  </g>
-);
+/**
+ * Exam desk seen from the front; origin = centre of desk top edge.
+ * `toFloor` draws a closed front (two drawer pedestals + modesty panel) down past
+ * the bottom of the frame, so nothing behind the desk (legs, chair) shows under it.
+ */
+export const Desk: React.FC<{x: number; y: number; width?: number; color?: string; toFloor?: boolean}> = ({x, y, width = 760, color = '#B45309', toFloor = false}) => {
+  if (!toFloor) {
+    return (
+      <g transform={`translate(${x} ${y})`}>
+        <rect x={-width / 2} y={0} width={width} height={46} rx={12} fill={color} stroke={COLORS.ink} strokeWidth={7} />
+        <rect x={-width / 2 + 30} y={46} width={width - 60} height={320} fill="#92400E" stroke={COLORS.ink} strokeWidth={7} />
+        <rect x={-width / 2 + 60} y={80} width={width - 120} height={110} rx={10} fill="#78350F" stroke={COLORS.ink} strokeWidth={5} />
+        <circle cx={0} cy={135} r={12} fill={COLORS.yellow} stroke={COLORS.ink} strokeWidth={4} />
+      </g>
+    );
+  }
+  const H = 1400; // well past the frame bottom, also under camera zoom/shake
+  const ped = width * 0.3; // pedestal width
+  const inner = width - 60;
+  const drawer = (px: number, i: number) => (
+    <g key={`${px}-${i}`}>
+      <rect x={px + 16} y={66 + i * 150} width={ped - 32} height={130} rx={10} fill="#A1520F" stroke={COLORS.ink} strokeWidth={5} />
+      <rect x={px + ped / 2 - 34} y={66 + i * 150 + 52} width={68} height={16} rx={8} fill="#5B210D" stroke={COLORS.ink} strokeWidth={3} />
+    </g>
+  );
+  const left = -inner / 2;
+  const right = inner / 2 - ped;
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <rect x={-inner / 2} y={46} width={inner} height={H} fill="#92400E" stroke={COLORS.ink} strokeWidth={7} />
+      {/* recessed modesty panel between the pedestals */}
+      <rect x={left + ped} y={46} width={inner - ped * 2} height={H} fill="#7C2D12" stroke={COLORS.ink} strokeWidth={5} />
+      <rect x={left + ped} y={46} width={inner - ped * 2} height={26} fill="#5B210D" />
+      {[0, 1, 2, 3].map((i) => drawer(left, i))}
+      {[0, 1, 2, 3].map((i) => drawer(right, i))}
+      {/* top slab with a soft shadow onto the front */}
+      <rect x={-inner / 2} y={46} width={inner} height={14} fill="#000" opacity={0.18} />
+      <rect x={-width / 2} y={0} width={width} height={46} rx={12} fill={color} stroke={COLORS.ink} strokeWidth={7} />
+      <rect x={-width / 2 + 14} y={8} width={width - 28} height={8} rx={4} fill="#FFFFFF" opacity={0.18} />
+    </g>
+  );
+};
 
 /** Desk lamp with warm light cone. */
 export const Lamp: React.FC<{x: number; y: number; on?: number}> = ({x, y, on = 1}) => (

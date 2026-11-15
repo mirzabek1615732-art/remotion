@@ -86,7 +86,7 @@ export const S2Problem: React.FC<{scene: TLScene}> = ({scene}) => {
           <Stage>
             <RoomBackground wall="#2F4A85" wall2="#21366A" pan={-30 - f * 0.4} shelf={false} />
             <AliCharacter x={540} y={1790} scale={1.5} pose={poseA} expression={exprA} handL="open" handR="open" shadow={0} />
-            <Desk x={540} y={1240} width={900} />
+            <Desk x={540} y={1240} width={900} toFloor />
             {/* open passage on the desk */}
             <g transform={`translate(540 1236) scale(${(0.3 + 0.7 * pageOpen) * 0.9} ${pageOpen * 0.32}) rotate(-1)`}>
               <ReadingPage w={600} h={380} lines={PASSAGE.slice(0, 3)} size={26} highlights={[{line: 0, from: 0, to: 34, color: '#FCA5A5', p: line1}]} />

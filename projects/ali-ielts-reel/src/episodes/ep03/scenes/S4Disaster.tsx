@@ -32,10 +32,10 @@ export const S4Disaster: React.FC<{scene: TLScene}> = ({scene}) => {
   const pose = track<Pose>(
     f,
     [
-      {at: 0, v: {...POSES.seated, armL: [-14, -88], armR: [-14, -88], lookY: 0.9, headTilt: 6}},
-      {at: NOTICE - 4, v: {...POSES.seated, armL: [-14, -88], armR: [40, -120], lookY: 0.6, lookX: -0.8, headTurn: -0.4, headTilt: -4}, dur: 5},
-      {at: TIK1 - 2, v: {...POSES.armsUpShock, thighScale: 0.32, legL: [8, -8], legR: [8, -8], lookY: -0.4, lookX: 0.6, headTurn: 0.3}, dur: 4},
-      {at: VAQT - 3, v: {...POSES.armsUpShock, armL: [160, 20], armR: [160, 20], thighScale: 0.32, legL: [8, -8], legR: [8, -8], lookY: 0, headTilt: -8}, dur: 4},
+      {at: 0, v: {...POSES.stand, armL: [-14, -88], armR: [-14, -88], lookY: 0.9, headTilt: 6}},
+      {at: NOTICE - 4, v: {...POSES.stand, armL: [-14, -88], armR: [40, -120], lookY: 0.6, lookX: -0.8, headTurn: -0.4, headTilt: -4}, dur: 5},
+      {at: TIK1 - 2, v: {...POSES.armsUpShock, lookY: -0.4, lookX: 0.6, headTurn: 0.3}, dur: 4},
+      {at: VAQT - 3, v: {...POSES.armsUpShock, armL: [160, 20], armR: [160, 20], lookY: 0, headTilt: -8}, dur: 4},
     ],
     mixPose,
   );
@@ -106,9 +106,9 @@ export const S4Disaster: React.FC<{scene: TLScene}> = ({scene}) => {
             </g>
           </g>
           <g transform={`translate(${tremble} 0)`}>
-            <AliCharacter x={640} y={1830} scale={1.5} pose={pose} expression={expr} handL="open" handR="open" shadow={0} frozen={frozen} blink={frozen ? 0 : undefined} />
+            <AliCharacter x={640} y={1960} scale={1.5} pose={pose} expression={expr} handL="open" handR="open" shadow={0} frozen={frozen} blink={frozen ? 0 : undefined} />
           </g>
-          {f >= NOTICE ? <SweatBurst x={640} y={1830 - 505 * 1.5} t={raw - NOTICE} seed="dz" count={f >= TIK1 ? 8 : 3} /> : null}
+          {f >= NOTICE ? <SweatBurst x={640} y={1960 - 505 * 1.5} t={raw - NOTICE} seed="dz" count={f >= TIK1 ? 8 : 3} /> : null}
           {/* TIK / TAK bursts on the beat */}
           {ticks.map((t, i) =>
             f >= t && f < t + 12 ? (
@@ -146,7 +146,7 @@ export const S4Disaster: React.FC<{scene: TLScene}> = ({scene}) => {
       ) : null}
       <At x={540} y={170}>
         {raw >= VAQT ? (
-          <AnimatedText text={'VAQT QAYERGA|KETDI?!'} from={VAQT} stagger={wordAt(scene, 'l09', 3) - VAQT} entrance="slam" size={122} accentWords={['KETDI?!']} accent={COLORS.yellow} rotate={-4} />
+          <AnimatedText text={'VAQT QAYERGA|KETDI?!'} from={VAQT} stagger={wordAt(scene, 'l09', 3) - VAQT} entrance="slam" size={104} accentWords={['KETDI?!']} accent={COLORS.yellow} rotate={-4} />
         ) : null}
       </At>
       {ticks.map((t) => (

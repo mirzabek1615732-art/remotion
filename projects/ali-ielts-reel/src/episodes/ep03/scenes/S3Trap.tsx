@@ -61,13 +61,13 @@ export const S3Trap: React.FC<{scene: TLScene}> = ({scene}) => {
             x={330}
             y={1790}
             scale={1.4}
-            pose={{...POSES.seated, armL: [40, 80], armR: [70, 60 + Math.sin(f / 2) * 25], headTilt: 10 + Math.sin(f / 3) * 4, lookX: 0.9, lookY: -0.6 - grow * 0.1, headTurn: 0.5}}
+            pose={{...POSES.seated, armL: [-14, -88], armR: [70, 60 + Math.sin(f / 2) * 25], headTilt: 10 + Math.sin(f / 3) * 4, lookX: 0.9, lookY: -0.6 - grow * 0.1, headTurn: 0.5}}
             expression={mixExpression(EXPRESSIONS.focused, EXPRESSIONS.panic, tween(f, [0, end], [0.1, 0.9]))}
             handL="open"
             handR="open"
             shadow={0}
           />
-          <Desk x={540} y={1240} width={900} />
+          <Desk x={540} y={1240} width={900} toFloor />
           <g transform={`translate(760 1240) scale(${grow})`}>
             <Dictionary w={210} h={280} />
           </g>

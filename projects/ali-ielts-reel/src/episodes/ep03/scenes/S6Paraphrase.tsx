@@ -123,7 +123,7 @@ export const S6Paraphrase: React.FC<{scene: TLScene}> = ({scene}) => {
           <AliCharacter x={170} y={2060} scale={1.0} pose={pose} expression={expr} handL="open" handR={f >= Q ? 'point' : 'open'} shadow={0} />
           {f >= AHA ? (
             <g>
-              <g transform={`translate(170 ${2060 - 700}) scale(${aha * 0.8})`}>
+              <g transform={`translate(360 1560) scale(${aha * 0.7})`}>
                 <Lightbulb glow={Math.min(1, aha)} colorful />
               </g>
               <g transform={`translate(880 1130) scale(${aha})`}>
