@@ -66,7 +66,7 @@ export const S7Improve: React.FC<{scene: TLScene}> = ({scene}) => {
           </defs>
           <rect width={1080} height={1920} fill="url(#im-bg)" />
           {/* progress bar */}
-          <g transform="translate(540 270)">
+          <g transform="translate(540 300)">
             <text y={-40} textAnchor="middle" fontFamily={F} fontWeight={900} fontSize={44} fill={COLORS.navy}>
               TO‘G‘RI JAVOBLAR
             </text>

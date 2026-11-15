@@ -144,7 +144,7 @@ export const S4Disaster: React.FC<{scene: TLScene}> = ({scene}) => {
           </div>
         </AbsoluteFill>
       ) : null}
-      <At x={540} y={170}>
+      <At x={540} y={220}>
         {raw >= VAQT ? (
           <AnimatedText text={'VAQT QAYERGA|KETDI?!'} from={VAQT} stagger={wordAt(scene, 'l09', 3) - VAQT} entrance="slam" size={104} accentWords={['KETDI?!']} accent={COLORS.yellow} rotate={-4} />
         ) : null}

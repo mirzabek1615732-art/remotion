@@ -110,7 +110,7 @@ export const S3Trap: React.FC<{scene: TLScene}> = ({scene}) => {
         </Stage>
       </CameraMovement>
       {f >= TEN ? (
-        <At x={540} y={170}>
+        <At x={540} y={225}>
           <AnimatedText text="10 DAQIQA!" from={TEN} entrance="slam" size={150} color={COLORS.yellow} accentWords={['10']} accent={COLORS.orange} stagger={4} rotate={-5} />
         </At>
       ) : null}

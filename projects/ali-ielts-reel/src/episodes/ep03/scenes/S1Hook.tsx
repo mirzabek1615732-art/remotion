@@ -88,7 +88,7 @@ export const S1Hook: React.FC<{scene: TLScene}> = ({scene}) => {
           <DustBurst x={830} y={1180} at={BOOK} count={12} spread={300} />
         </Stage>
       </CameraMovement>
-      <At x={540} y={150}>
+      <At x={540} y={225}>
         {f < BOOK ? (
           <AnimatedText text={'MANA BU|ALI!'} from={0} stagger={7} entrance="slam" size={150} accentWords={['ALI!']} rotate={-4} exitAt={BOOK - 6} />
         ) : (
