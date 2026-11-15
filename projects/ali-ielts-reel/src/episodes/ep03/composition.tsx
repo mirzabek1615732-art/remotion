@@ -2,6 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Sequence} from 'remotion';
 import {AudioOffset, EpisodeAudioProvider, MusicBed, Narration, type Stem} from '../../audio/EpisodeAudio';
 import {EpisodeSubtitles} from '../../components/EpisodeSubtitles';
+import {Watermark} from '../../components/Watermark';
 import {SceneTransition, type TransitionKind} from '../../components/SceneTransition';
 import {loadFonts} from '../../fonts';
 import {COLORS} from '../../theme';
@@ -75,6 +76,8 @@ export const Ep03AliReading: React.FC<Ep03Props> = ({stem}) => {
           const t = TRANSITIONS[s.id];
           return t ? <SceneTransition key={`t-${s.id}`} at={s.from} kind={t.kind} color={t.color} color2={t.color2} half={6} /> : null;
         })}
+        {/* brand watermark on every frame; hands over to the end-card sign-off */}
+        <Watermark hideFrom={EP03.durationInFrames - 40} />
         <Narration clips={clips} />
         {/* series music bed, ducked under the narrator; tension bed for the time disaster */}
         <MusicBed src="audio/norm/music_main.wav" durationInFrames={disaster.from + 6} />

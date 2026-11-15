@@ -26,6 +26,7 @@ Next ideas: Listening ("Ali va spelling tuzog‘i"), Writing Task 2 ("Ali 250 so
 7. **Ending:** a two-choice question to the viewer ("VAQT yoki NOTANISH SO‘ZLAR?"), comment bubbles, follow-button tap, "ALI BILAN IELTS O‘RGAN!", "Keyingi qism: tez orada!".
 
 ## Look
+- **Watermark on every episode (required):** `<Watermark hideFrom={duration - 40} />` from `src/components/Watermark.tsx` — small "BAKHRIDDINOV SCHOOL" pill top-centre (y≈62, clear of Instagram's header icons and the headline band), plus `<BrandSignoff>` on the end card. Ep2 was posted without it; never skip it again.
 - Theme colours from `src/theme.ts` (navy #111827, blue #2563EB, yellow #FACC15, orange #FB923C, green #22C55E), Montserrat 900.
 - Big kinetic headlines at the top (y≈150–400); captions in the 1290 band, or 1460 where Ali's face sits there (see `LOW_CAPTION_SCENES` in ep03 `composition.tsx`). Keep the right edge clear of Instagram's buttons.
 - No emoji in renders (headless Chrome has no emoji font) — use SVG icons.

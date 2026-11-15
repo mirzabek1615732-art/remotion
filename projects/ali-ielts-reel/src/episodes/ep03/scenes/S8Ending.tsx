@@ -10,6 +10,7 @@ import {COLORS, FONT_FAMILY} from '../../../theme';
 import {wordAt, type TLScene} from '../../buildTimeline';
 import {At, Stage} from '../../../scenes/Stage';
 import {BookIcon, ClockIcon, F} from './common';
+import {BrandSignoff} from '../../../components/Watermark';
 
 const COMMENTS = [
   {name: 'dilnoza_ielts', text: 'VAQT! Har doim ulgurmayman', side: -1},
@@ -147,6 +148,7 @@ export const S8Ending: React.FC<{scene: TLScene}> = ({scene}) => {
         {f >= IZOH && f < FOLLOWQ ? <AnimatedText text={'IZOHLARDA|YOZ!'} from={IZOH} stagger={5} entrance="slam" size={130} accentWords={['YOZ!']} accent={COLORS.yellow} /> : null}
         {f >= finalAt ? <AnimatedText text={'ALI BILAN|IELTS O‘RGAN!'} from={finalAt} stagger={5} entrance="slam" size={106} accentWords={['IELTS', 'O‘RGAN!']} accent={COLORS.yellow} rotate={-3} /> : null}
       </At>
+      <BrandSignoff from={finalAt + 12} />
       <DuckedSfx name="whoosh" at={SENCHI - 2} gainDb={-8} />
       <DuckedSfx name="card_flip" at={Q + 4} gainDb={-8} />
       <DuckedSfx name="card_flip" at={Q + 10} gainDb={-8} />

@@ -19,6 +19,9 @@ The owner of this repository is an **IELTS instructor and English teacher in Uzb
 - `personal-brand/PROFILE.md`: brand facts (name, city, credentials, prices, links). Fill in the TODOs; don't invent them.
 - `ali-ielts-reel/`: the Remotion animation project ("ALI va IELTS" series: Ep1 posted, Ep2 Speaking made outside the repo, Ep3 Reading rendered — voice for 2 lines pending). Read `ali-ielts-reel/SERIES.md` before any new episode.
 
+## Watermark (every video, animated or teacher)
+- Every video gets a neat "Bakhriddinov School" watermark: small, in a corner or top-centre band clear of Instagram UI, plus the name on the end card. For Ali episodes use `ali-ielts-reel/src/components/Watermark.tsx`. Check it is in the render before delivering.
+
 ## Editing lessons (from the posted intro reel — apply to every new video)
 - **Text behind the subject:** curly/light-catching hair over solid black text reads as grey haze. Place behind-text so it ends *above* the head at its highest point, or overlaps only the shoulders/jacket — never the hairline. If hair must overlap, run matting at 0.5 scale (full res gives blocky patches), then `hair_lumakey.py` (keys out wall seen through hair gaps) before compositing, and check a full-size crop of the hairline at 3 points in time.
 - **Back-to-back cutaways:** never fade a cutaway in over another cutaway — the clip underneath ghosts through. Only the first cutaway of a run fades in; the next ones hard-cut (`StudentCert fadeIn={false}`).
