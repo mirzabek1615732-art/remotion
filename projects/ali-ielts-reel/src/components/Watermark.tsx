@@ -1,9 +1,27 @@
 import React from 'react';
-import {useCurrentFrame} from 'remotion';
+import {Img, staticFile, useCurrentFrame} from 'remotion';
 import {COLORS, FONT_FAMILY} from '../theme';
 import {tween} from './anim';
 
 export const BRAND_NAME = 'Bakhriddinov School';
+
+/**
+ * OFFICIAL school watermark — use this in every Ali episode from Episode 4 on
+ * (Ep3 shipped with the legacy text pill below). Spec from the school's brand rules
+ * (claude-code-video-toolkit/brands/bakhriddinov-school): the official logo file, white on
+ * transparent, top-right, 1080x1920 → top 104, right 44, width 252; opacity 0.85 + soft drop
+ * shadow, no box/pill; every frame, never animated; render it as the LAST layer, outside the
+ * camera. Titles must keep their top edge below y≈210 so they never touch it.
+ * Scale the numbers with the canvas for other sizes.
+ */
+export const SchoolWatermark: React.FC = () => (
+  <Img
+    src={staticFile('brand/logo-watermark.png')}
+    style={{position: 'absolute', top: 104, right: 44, width: 252, opacity: 0.85, filter: 'drop-shadow(0 2px 6px rgba(0,8,30,0.7))', pointerEvents: 'none'}}
+  />
+);
+
+/** @deprecated Legacy text-pill watermark, used only by Episode 3. New episodes use SchoolWatermark. */
 
 /**
  * Brand watermark for every Ali episode: small pill, top-centre (y≈70), between
